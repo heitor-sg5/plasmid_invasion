@@ -31,10 +31,9 @@ def plot_time_series(results):
 def plot_beta_heatmap(heatmap, beta_values, cost_values, beta_sweep, pf_sweep):
     fig_dir = ensure_figures_dir()
     fig, axs = plt.subplots(1,2, figsize=(12,5))
-    im = axs[0].imshow(heatmap, aspect='auto', origin='lower',
+    im = axs[0].imshow(heatmap, aspect='auto', origin='lower', 
                        extent=[beta_values[0], beta_values[-1],
-                               cost_values[0], cost_values[-1]],
-                       cmap='viridis')
+                       cost_values[0], cost_values[-1]], cmap='viridis')
     axs[0].set_xlabel('Transfer rate, β')
     axs[0].set_ylabel('Plasmid cost, c')
     axs[0].set_title('Plasmid Fraction Heatmap')
