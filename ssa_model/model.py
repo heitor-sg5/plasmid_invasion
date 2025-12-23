@@ -12,11 +12,23 @@ base_params = {
 
 TMAX = 150
 y0 = [0.9, 0.1]
-
 def gillespie_ssa(p, TMAX, y0):
     F = int(y0[0] * p['K'])
     P = int(y0[1] * p['K'])
     t = 0.0
+
+    K = p['K']
+    r = p['r']
+    mu = p['mu']
+    delta = p['delta']
+    beta = p['beta']
+    c = p['c']
+    s = p['s']
+
+    rF = r * (1 - s)
+    rP = r * (1 - c)
+    K_div = 1.0 / K
+    beta_div = beta * K_div
 
     times = [t]
     Fs = [F]
@@ -24,47 +36,43 @@ def gillespie_ssa(p, TMAX, y0):
 
     while t < TMAX and (F + P) > 0:
         N = F + P
+        NFactor = 1 - N * K_div
 
-        rF = p['r'] * (1 - p['s'])
-        rP = p['r'] * (1 - p['c'])
+        wF = max(0.0, rF * NFactor)
+        wP = max(0.0, rP * NFactor)
+        a0 = wF * F + wP * P + mu * (F + P) + delta * P + beta_div * F * P
 
-        wF = max(0.0, rF * (1 - N / p['K']))
-        wP = max(0.0, rP * (1 - N / p['K']))
-
-        a = np.array([
-            wF * F,                     # F birth
-            wP * P,                     # P birth
-            p['mu'] * F,                # F death
-            p['mu'] * P,                # P death
-            p['delta'] * P,             # plasmid loss
-            p['beta'] * F * P / p['K']  # conjugation
-        ])
-
-        a0 = a.sum()
         if a0 <= 0:
             break
 
         tau = np.random.exponential(1 / a0)
         t += tau
 
-        r = np.random.rand() * a0
-        cumulative = np.cumsum(a)
+        r_val = np.random.rand() * a0
 
-        if r < cumulative[0]:
-            F += 1
-        elif r < cumulative[1]:
-            P += 1
-        elif r < cumulative[2]:
-            F -= 1
-        elif r < cumulative[3]:
-            P -= 1
-        elif r < cumulative[4]:
-            P -= 1
+        c0 = wF * F
+        if r_val < c0:
             F += 1
         else:
-            F -= 1
-            P += 1
-
+            c1 = c0 + wP * P
+            if r_val < c1:
+                P += 1
+            else:
+                c2 = c1 + mu * F
+                if r_val < c2:
+                    F -= 1
+                else:
+                    c3 = c2 + mu * P
+                    if r_val < c3:
+                        P -= 1
+                    else:
+                        c4 = c3 + delta * P
+                        if r_val < c4:
+                            P -= 1
+                            F += 1
+                        else:
+                            F -= 1
+                            P += 1
         F = max(F, 0)
         P = max(P, 0)
 
