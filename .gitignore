@@ -3,3 +3,7 @@ __pycache__/
 
 venv/
 *.log
+
+pyproject.toml
+uv.lock
+.python-version
