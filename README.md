@@ -120,7 +120,7 @@ Multiple stochastic realisations were generated to produce time series of plasmi
 
 ### Outputs and Visualizations
 
-For both models, time-series outputs of $F$ and $P$ were recorded and visualised. ODE simulations were further used to construct $β$-$c$ heatmaps and β-dependent bifurcation plots to summarise invasion and persistence regimes. All figures were generated using the plotting utilities contained within the respective `ode_model/` and `ssa_model/` directories.
+For both models, time-series outputs of $F$ and $P$ were recorded and visualised. ODE simulations were further used to construct $β$ - $c$ heatmaps and $β$-dependent bifurcation plots to summarise invasion and persistence regimes. All figures were generated using the plotting utilities contained within the respective `ode_model/` and `ssa_model/` directories.
 
 ---
 
@@ -153,9 +153,9 @@ Existence conditions further constrain long-term outcomes. The plasmid-free equi
 
 ODE simulations are consistent with the analytical invasion condition. When $s=0$ and $β$ is below the critical value, plasmids fail to invade and decay deterministically to extinction. Increasing selective pressure lowers the effective invasion threshold by penalising plasmid-free cells, allowing plasmids to persist at progressively lower transfer rates. 
 
-At intermediate selective pressure ($s=0$.2), plasmids invade successfully when $β>β$, eventually becoming the dominant population while maintaining coexistence with plasmid-free cells. At higher selective pressure ($s=0.6$), plasmids rapidly dominate the system, driving plasmid-free cells to very low equilibrium densities. 
+At intermediate selective pressure ($s=0$.2), plasmids invade successfully when $β>β_c$, eventually becoming the dominant population while maintaining coexistence with plasmid-free cells. At higher selective pressure ($s=0.6$), plasmids rapidly dominate the system, driving plasmid-free cells to very low equilibrium densities. 
 
-As $s→r$, the existence condition for the plasmid-free equilibrium ($μ<r(1−s)$) fails, making extinction of plasmid-free cells increasingly likely even in the absence of transfer dynamics.
+As $s→r$, the existence condition for the plasmid-free equilibrium $μ<r(1−s)$ fails, making extinction of plasmid-free cells increasingly likely even in the absence of transfer dynamics.
 
 ### Stochastic Effects and SSA Outcomes
 
