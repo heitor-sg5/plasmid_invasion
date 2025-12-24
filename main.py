@@ -31,6 +31,7 @@ def main():
         start_time = time.time()
         results = ssa_model.run_multiple_ssa()
         print(f"SSA simulation completed in {time.time() - start_time:.2f} seconds.\n")
+        ssa_model.analyze_ssa_results(results)
         ssa_charts.plot_ssa_trajectories(results)
         
     else:

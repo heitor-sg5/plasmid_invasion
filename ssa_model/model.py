@@ -108,3 +108,20 @@ def run_multiple_ssa(s_values=[0.0, 0.2, 0.6], n_runs=50):
         }
 
     return results
+
+def analyze_ssa_results(results):
+    for s, data in results.items():
+        F_matrix = data['F']
+        P_matrix = data['P']
+
+        mean_F = F_matrix.mean(axis=0)
+        std_F = F_matrix.std(axis=0)
+        mean_P = P_matrix.mean(axis=0)
+        std_P = P_matrix.std(axis=0)
+
+        extinct_fraction = np.sum(P_matrix[:, -1] == 0) / P_matrix.shape[0]
+
+        print(f"s = {s:.2f}")
+        print(f"  Mean F (final) = {mean_F[-1]:.4f} ± {std_F[-1]:.4f}")
+        print(f"  Mean P (final) = {mean_P[-1]:.4f} ± {std_P[-1]:.4f}")
+        print(f"  Fraction of runs where plasmids go extinct: {extinct_fraction:.2f}\n")
