@@ -112,7 +112,7 @@ To visualise these invasion thresholds, ODE simulations were used to generate bi
 
 ### Stochastic SSA Model
 
-To capture stochastic effects not represented in the deterministic framework, a Gillespie-style SSA was implemented (Appendix C). The SSA explicitly simulates individual-level birth, death, plasmid loss, and conjugation events, with event propensities derived from the same biological processes as the ODE model. 
+To capture stochastic effects not represented in the deterministic system, a Gillespie-style SSA was implemented (Appendix C). The SSA explicitly simulates individual-level birth, death, plasmid loss, and conjugation events, with event propensities derived from the same biological processes as the ODE model. 
 
 The full set of reactions and propensity functions is given in Appendix C.2. Logistic growth was incorporated by scaling birth rates with the total population size. The simulation proceeds by sampling reaction times from an exponential distribution and selecting reaction events probabilistically according to their relative propensities (Appendix C.3). 
 
