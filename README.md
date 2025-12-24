@@ -143,7 +143,9 @@ $$
 
 Under the standard parameter values, this critical transfer rate evaluates to $β_c=0.0167$.
 
-For $β<β_c$, plasmids cannot invade and the plasmid-free equilibrium is locally stable; for $β>β_c$, plasmids grow when rare and persist in the population. 
+For $β<β_c$, plasmids cannot invade and the plasmid-free equilibrium is locally stable; for $β>β_c$, plasmids grow when rare and persist in the population (Figure 1).
+
+![Figure 1](ode_model/figures/beta_heatmap.png)
 
 The threshold expression reveals that the minimum transfer rate increases additively with both plasmid loss and plasmid cost, amplified by the demographic factor $1/(1−μ/r)$. Even in the absence of segregational loss ($δ=0$), plasmid invasion requires a transfer rate proportional to plasmid cost, while loss imposes an additional independent constraint. 
 
@@ -153,7 +155,10 @@ Existence conditions further constrain long-term outcomes. The plasmid-free equi
 
 ODE simulations are consistent with the analytical invasion condition. When $s=0$ and $β$ is below the critical value, plasmids fail to invade and decay deterministically to extinction. Increasing selective pressure lowers the effective invasion threshold by penalising plasmid-free cells, allowing plasmids to persist at progressively lower transfer rates. 
 
-At intermediate selective pressure ($s=0$.2), plasmids invade successfully when $β>β_c$, eventually becoming the dominant population while maintaining coexistence with plasmid-free cells. At higher selective pressure ($s=0.6$), plasmids rapidly dominate the system, driving plasmid-free cells to very low equilibrium densities. 
+At intermediate selective pressure ($s=0$.2), plasmids invade successfully when $β>β_c$, eventually becoming the dominant population while maintaining coexistence with plasmid-free cells. At higher selective pressure ($s=0.6$), plasmids rapidly dominate the system, driving plasmid-free cells to very low equilibrium densities (Figure 2).
+
+![Figure 2](ode_model/figures/time_series.png)
+
 
 As $s→r$, the existence condition for the plasmid-free equilibrium $μ<r(1−s)$ fails, making extinction of plasmid-free cells increasingly likely even in the absence of transfer dynamics.
 
@@ -163,7 +168,9 @@ Stochastic simulations broadly reproduce the qualitative behaviour of the determ
 
 At $s=0.2$, the majority of stochastic realisations closely match the ODE dynamics: plasmids successfully invade, increase in frequency, and become the dominant population ($0.5513±0.0368$ versus $0.3376±0.0340$). No plasmid extinctions were observed under these conditions. 
 
-At high selective pressure ($s=0.6$), plasmids effectively take over the population in all stochastic runs ($0.7624±0.0202$), with plasmid-free cells persisting only at very low abundances ($0.1251±0.0141$). No plasmid extinctions occur in this regime, and stochastic variability primarily affects the timing rather than the outcome of invasion. 
+At high selective pressure ($s=0.6$), plasmids effectively take over the population in all stochastic runs ($0.7624±0.0202$), with plasmid-free cells persisting only at very low abundances ($0.1251±0.0141$). No plasmid extinctions occur in this regime, and stochastic variability primarily affects the timing rather than the outcome of invasion (Figure 3).
+
+![Figure 3](ssa_model/figures/ssa_trajectories.png)
 
 Overall, stochasticity is most influential near the deterministic invasion threshold and when plasmid populations are rare, while strong selective pressure stabilises plasmid persistence and suppresses extinction risk.
 
