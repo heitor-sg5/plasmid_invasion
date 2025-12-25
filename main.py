@@ -27,8 +27,8 @@ def main():
         ode_charts.plot_time_series(ts_results)
         heatmap, beta_values, cost_values, beta_sweep, pf_sweep = ode_model.run_beta_sweep()
         print(f"Beta sweep simulation completed in {time.time() - start_time:.2f} seconds.\n")
-        
         ode_charts.plot_beta_heatmap(heatmap, beta_values, cost_values, beta_sweep, pf_sweep)
+        
     elif choice == '2':
         start_time = time.time()
         results = ssa_model.run_multiple_ssa()

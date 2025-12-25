@@ -122,6 +122,6 @@ def analyze_ssa_results(results):
         extinct_fraction = np.sum(P_matrix[:, -1] == 0) / P_matrix.shape[0]
 
         print(f"s = {s:.2f}")
-        print(f"  Mean F (final) = {mean_F[-1]:.4f} ± {std_F[-1]:.4f}")
-        print(f"  Mean P (final) = {mean_P[-1]:.4f} ± {std_P[-1]:.4f}")
-        print(f"  Fraction of runs where plasmids go extinct: {extinct_fraction:.2f}\n")
+        print(f"Mean F (final) = {mean_F[-1]:.4f} ± {std_F[-1]:.4f}")
+        print(f"Mean P (final) = {mean_P[-1]:.4f} ± {std_P[-1]:.4f}")
+        print(f"Fraction of runs where plasmids go extinct: {extinct_fraction:.2f}\n")
