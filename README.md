@@ -55,7 +55,7 @@ Plasmids are self-replicating, extra-chromosomal DNA molecules that are widely d
 
 Among the mechanisms of horizontal gene transfer, conjugation-direct plasmid transfer from a donor to a recipient cell via cell–cell contact is the best studied and is believed to play a central role in plasmid persistence at the population level. From both ecological and clinical perspectives, conjugative plasmids are of particular importance, as they are major drivers of the spread of antibiotic resistance genes and have contributed substantially to the global antimicrobial resistance crisis. 
 
-The plasmid life cycle is governed by three key processes: intracellular replication and copy-number control, partitioning between daughter cells at division, and, for conjugative plasmids, horizontal transmission between cells. Together, these processes determine whether plasmids are stably maintained or lost from a bacterial population. Because plasmid inheritance is imperfect, plasmid-free cells can arise through segregational loss, and these cells may have a fitness advantage if plasmid carriage is costly. As a result, plasmid persistence is not guaranteed even when plasmids encode beneficial traits [1, 2].
+The plasmid life cycle is governed by three key processes: intracellular replication and copy-number control, partitioning between daughter cells at division, and, for conjugative plasmids, horizontal transmission between cells. Together, these processes determine whether plasmids are stably maintained or lost from a bacterial population. Because plasmid inheritance is imperfect, plasmid-free cells can arise through segregational loss, and these cells may have a fitness advantage if plasmid carriage is costly. As a result, plasmid persistence is not guaranteed even when plasmids encode beneficial traits.
 
 ### Cost and Transfer Fitness Trade-off
 
@@ -65,7 +65,7 @@ Two broad mechanisms have been proposed to explain how plasmids persist over evo
 
 Conjugation dynamics are governed by two key processes: the efficiency of plasmid transfer and the growth dynamics of plasmid-bearing cells. Both processes depend on intrinsic plasmid properties and environmental conditions. Experimental studies have shown that conjugation rates can vary by orders of magnitude depending on host physiology, while plasmid-associated fitness effects can range from strongly deleterious to beneficial. Together, these factors determine whether horizontal transfer can offset plasmid cost and segregational loss. 
 
-In addition to long-term fitness costs measured in stable plasmid-bearing lineages, plasmid acquisition itself can impose an immediate metabolic burden on newly formed transconjugants. Following conjugation, transient disruptions to gene regulation and resource allocation can reduce growth rates or prolong lag phases before exponential growth resumes. Although these short-term acquisition costs are difficult to quantify and are often excluded from traditional fitness measurements, they further reinforce the trade-off between plasmid transfer and host growth [3, 4].
+In addition to long-term fitness costs measured in stable plasmid-bearing lineages, plasmid acquisition itself can impose an immediate metabolic burden on newly formed transconjugants. Following conjugation, transient disruptions to gene regulation and resource allocation can reduce growth rates or prolong lag phases before exponential growth resumes. Although these short-term acquisition costs are difficult to quantify and are often excluded from traditional fitness measurements, they further reinforce the trade-off between plasmid transfer and host growth.
 
 ### Selection and Invasion Thresholds
 
@@ -77,7 +77,7 @@ Early mathematical models of conjugative plasmids formalised this idea by identi
 
 Despite these predictions, the ecological relevance of conjugation-mediated persistence has been debated. Some studies have argued that the transfer rates required to maintain costly plasmids are unrealistically high, while others have demonstrated experimentally that conjugation can indeed be fast enough to support plasmid invasion. Differences in experimental systems, host strains, plasmids, and environmental conditions complicate direct comparisons further.
 
-Mathematical models provide a natural framework for deriving such criteria. By analysing plasmid invasion at low frequency, it can be determined whether plasmids can establish in an otherwise plasmid-free population. This approach yields explicit invasion thresholds that separate regimes of plasmid extinction from persistence and dominance. These thresholds depend not only on plasmid cost and loss, but also on host demographic parameters and selective pressures acting on plasmid-free cells. As a result, selection can lower invasion barriers and qualitatively change long-term population outcomes, even without directly benefiting plasmid-bearing cells [5, 6].
+Mathematical models provide a natural framework for deriving such criteria. By analysing plasmid invasion at low frequency, it can be determined whether plasmids can establish in an otherwise plasmid-free population. This approach yields explicit invasion thresholds that separate regimes of plasmid extinction from persistence and dominance. These thresholds depend not only on plasmid cost and loss, but also on host demographic parameters and selective pressures acting on plasmid-free cells. As a result, selection can lower invasion barriers and qualitatively change long-term population outcomes, even without directly benefiting plasmid-bearing cells.
 
 ### Study Aims and Objectives
 
@@ -106,7 +106,7 @@ The ODE system was numerically integrated using standard time-stepping methods i
 
 Analytical expressions for the plasmid-free and plasmid-bearing equilibria were derived by solving the steady-state conditions of the ODE system (Appendix B.1). Local stability of these equilibria was assessed using the Jacobian matrix of the system (Appendix B.2). 
 
-Plasmid invasion conditions were determined by evaluating the invasion eigenvalue at the plasmid-free equilibrium (Appendix B.3). This analysis yields a threshold condition on the conjugation rate, defining the minimum plasmid transfer rate required for successful invasion. Expressions for critical values of the transfer rate and selective pressure were derived (Appendix B.4), including linearization of the critical transfer rate in respect to plasmid loss and cost (Appendix B.5). 
+Plasmid invasion conditions were determined by evaluating the invasion eigenvalue at the plasmid-free equilibrium (Appendix B.3). This analysis yields a threshold condition on the conjugation rate, defining the minimum plasmid transfer rate required for successful invasion. Expressions for critical values of the transfer rate and selective pressure were derived, including linearization of the critical transfer rate in respect to plasmid loss and cost (Appendix B.4). 
 
 To visualise these invasion thresholds, ODE simulations were used to generate bifurcation plots showing plasmid persistence as a function of the conjugation rate $β$, as well as two-parameter heatmap sweeps illustrating the combined effects of plasmid transfer rate and plasmid cost on long-term plasmid prevalence.
 
@@ -130,7 +130,7 @@ For both models, time-series outputs of $F$ and $P$ were recorded and visualised
 Analysis of the deterministic ODE model yields a clear invasion criterion for plasmid-bearing cells. Linear stability analysis at the plasmid-free equilibrium shows that plasmids can invade only if the conjugation rate $β$ exceeds a critical threshold:
 
 $$
-β_c = \frac {δ+μ(c/1-s)} {(1 - μ/r(1-s))}
+β_c = \frac {1} {K} \frac {δ+μ(c/1-s)} {(1 - μ/r(1-s))}
 $$
 
 where $δ$ is the segregational loss rate, $c$ is the plasmid cost, $μ$ is the mortality rate, $r$ is the baseline growth rate, and $s$ represents selective pressure acting against plasmid-free cells.
@@ -138,7 +138,7 @@ where $δ$ is the segregational loss rate, $c$ is the plasmid cost, $μ$ is the 
 In the absence of selective pressure ($s=0$), this simplifies to:
 
 $$
-β_c = \frac {δ+μc} {(1 - μ/r)}
+β_c = \frac {δ+μc} {K(1 - μ/r)}
 $$
 
 Under the standard parameter values, this critical transfer rate evaluates to $β_c=0.0167$.
@@ -148,6 +148,8 @@ For $β<β_c$, plasmids cannot invade and the plasmid-free equilibrium is locall
 ![Figure 1](ode_model/figures/beta_heatmap.png)
 
 The threshold expression reveals that the minimum transfer rate increases additively with both plasmid loss and plasmid cost, amplified by the demographic factor $1/(1−μ/r)$. Even in the absence of segregational loss ($δ=0$), plasmid invasion requires a transfer rate proportional to plasmid cost, while loss imposes an additional independent constraint. 
+
+To clarify the relative importance of these constraints, we consider the dimensionless ratios $β_c/c$ and $β_c/δ$. Under the standard parameterisation, we obtain $β_c/c=0.322$ and $β_c/δ≈17.8$. The low value of $β_c/c$ indicates that plasmid fitness costs impose only a weak barrier to invasion. That is, a conjugation rate substantially smaller than the cost itself is sufficient to compensate for reduced host growth. In contrast, the large value of $β_c/δ$ shows that segregational loss is the dominant limitation, requiring a conjugation rate many times greater than the loss rate for plasmids to persist. Together, these results indicate that plasmid invasion in this system is constrained primarily by inheritance instability rather than by metabolic cost to the host.
 
 Existence conditions further constrain long-term outcomes. The plasmid-free equilibrium exists only when $μ<r(1−s)$, while the plasmid-bearing-only equilibrium requires $μ+δ<r(1−c)$. As mortality or plasmid cost increases, these equilibria disappear via feasibility loss, independently of invasion stability.
 
