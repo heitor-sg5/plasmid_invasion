@@ -105,4 +105,4 @@ Available CL options:
 
 ## Documentation
 
-A detailed analysis of the model, including derivations of critical conjugation thresholds and interpretation of simulation results, is provided in the PDF files found in `docs/`.
+A detailed analysis of the model, including derivations of critical conjugation thresholds and interpretation of simulation results, are provided in the PDF files found in `docs/`.
