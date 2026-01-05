@@ -1,5 +1,4 @@
 import os
-import numpy as np
 import matplotlib.pyplot as plt
 
 def ensure_figures_dir():
@@ -32,7 +31,6 @@ def plot_ssa_trajectories(results):
 
     plt.tight_layout()
     plt.show()
-
     fig_path = os.path.join(fig_dir, 'ssa_trajectories.png')
     fig.savefig(fig_path)
     print(f"SSA trajectories saved to {fig_path}")

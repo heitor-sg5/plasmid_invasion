@@ -1,43 +1,48 @@
+import argparse
 import time
+import json
+import os
+
 from ode_model import model as ode_model, charts as ode_charts
 from ssa_model import model as ssa_model, charts as ssa_charts
 
+def run_odes(base_params, TMAX):
+    start_time = time.time()
+    ts_results = ode_model.run_time_series(base_params, TMAX)
+    heatmap, beta_values, cost_values, beta_sweep, pf_sweep = ode_model.run_beta_sweep(base_params, TMAX)
+    end_time = time.time() - start_time
+    ode_model.analyse_ode_results(base_params)
+    ode_charts.plot_time_series(ts_results)
+    ode_charts.plot_beta_heatmap(heatmap, beta_values, cost_values, beta_sweep, pf_sweep)
+    print(f"Runtime {end_time:.2f} seconds.\n")
+
+def run_ssa(base_params, TMAX, runs):
+    start_time = time.time()
+    results = ssa_model.run_multiple_ssa(base_params, TMAX, runs)
+    end_time = time.time() - start_time
+    ssa_model.analyze_ssa_results(results)
+    ssa_charts.plot_ssa_trajectories(results)
+    print(f"Runtime: {end_time:.2f} seconds.\n")
+
 def main():
-    print("Select simulation type:")
-    print("1 - ODE model")
-    print("2 - SSA model")
-    choice = input("Enter 1 or 2: ").strip()
+    parser = argparse.ArgumentParser(description="Plasmid population dynamics model")
+    parser.add_argument("--params", type=str, default="parameters/params.json", help="Path to parameter JSON file")
+    parser.add_argument("--TMAX", type=int, default=500, help="Maximum time to run models")
+    parser.add_argument("--ode", action="store_true", help="Run deterministic ODE simulation")
+    parser.add_argument("--ssa", action="store_true", help="Run stochastic SSA simulation")
+    parser.add_argument("--runs", type=int, default=50, help="Number of runs for SSA")
+    args = parser.parse_args()
 
-    if choice == '1':
-        start_time = time.time()
-        p = ode_model.base_params.copy()
-        beta_crit = ode_model.get_beta_crit(p)
-        beta_cost = ode_model.get_beta_cost(p)
-        beta_delta = ode_model.get_beta_delta(p)
+    if not os.path.exists(args.params):
+        raise FileNotFoundError(f"Parameter file not found: {args.params}")
 
-        print("\nAnalytical thresholds (base parameters):")
-        print(f"Critical β = {beta_crit:.4f}")
-        print(f"Critical β / c = {beta_cost:.4f}")
-        print(f"Critical β / δ = {beta_delta:.4f}")
+    with open(args.params, "r") as f:
+        base_params = json.load(f)
 
-        ts_results = ode_model.run_time_series()
-        print(f"Time series simulation completed in {time.time() - start_time:.2f} seconds.\n")
-
-        start_time = time.time()
-        ode_charts.plot_time_series(ts_results)
-        heatmap, beta_values, cost_values, beta_sweep, pf_sweep = ode_model.run_beta_sweep()
-        print(f"Beta sweep simulation completed in {time.time() - start_time:.2f} seconds.\n")
-        ode_charts.plot_beta_heatmap(heatmap, beta_values, cost_values, beta_sweep, pf_sweep)
-        
-    elif choice == '2':
-        start_time = time.time()
-        results = ssa_model.run_multiple_ssa()
-        print(f"SSA simulation completed in {time.time() - start_time:.2f} seconds.\n")
-        ssa_model.analyze_ssa_results(results)
-        ssa_charts.plot_ssa_trajectories(results)
-        
+    if args.ssa:
+        run_ssa(base_params, args.TMAX, args.runs)
     else:
-        print("Invalid choice.")
+        run_odes(base_params, args.TMAX)
 
 if __name__ == "__main__":
     main()

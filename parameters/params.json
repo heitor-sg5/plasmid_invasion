@@ -1,0 +1,21 @@
+{
+  "K": 1.0, 
+  "r": 1.0,
+  "mu": 0.1,
+  "c": 0.05,
+  "beta": 0.01,
+  "delta": 0.01,
+  "s": 0.0,
+
+  "_meta": {
+    "descriptions": {
+      "K": "Carrying capacity",
+      "r": "Baseline growth rate",
+      "mu": "Baseline mortality rate",
+      "c": "Plasmid cost",
+      "beta": "Conjugation rate",
+      "delta": "Plasmid loss",
+      "s": "Selective pressure"
+    }
+  }
+}

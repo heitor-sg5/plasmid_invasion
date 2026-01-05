@@ -1,17 +1,21 @@
 import numpy as np
 
-base_params = {
-    'K': 1000,       # carrying capacity
-    'r': 1.0,        # baseline growth rate
-    'mu': 0.1,       # baseline mortality
-    'c': 0.05,       # plasmid cost
-    'beta': 0.01,    # conjugation rate
-    'delta': 0.01,   # plasmid loss
-    's': 0.0,        # selective pressure
-}
-
-TMAX = 1000
 y0 = [0.9, 0.1]
+
+def analyze_ssa_results(results):
+    for s, data in results.items():
+        F_matrix = data['F']
+        P_matrix = data['P']
+        mean_F = F_matrix.mean(axis=0)
+        std_F = F_matrix.std(axis=0)
+        mean_P = P_matrix.mean(axis=0)
+        std_P = P_matrix.std(axis=0)
+        extinct_fraction = np.sum(P_matrix[:, -1] == 0) / P_matrix.shape[0]
+        print(f"s = {s:.2f}")
+        print(f"Mean F (final) = {mean_F[-1]:.4f} ± {std_F[-1]:.4f}")
+        print(f"Mean P (final) = {mean_P[-1]:.4f} ± {std_P[-1]:.4f}")
+        print(f"Fraction of runs where plasmids go extinct: {extinct_fraction:.2f}\n")
+
 def gillespie_ssa(p, TMAX, y0):
     F = int(y0[0] * p['K'])
     P = int(y0[1] * p['K'])
@@ -82,15 +86,17 @@ def gillespie_ssa(p, TMAX, y0):
 
     return np.array(times), np.array(Fs), np.array(Ps)
 
-def run_multiple_ssa(s_values=[0.0, 0.2, 0.6], n_runs=50):
+def run_multiple_ssa(base_params, TMAX, runs):
     results = {}
+    s_values=[0.0, 0.2, 0.6]
     t_grid = np.linspace(0, TMAX, 500)
+    base_params['K'] = base_params['K'] * 1000
 
     for s in s_values:
         Fs_runs = []
         Ps_runs = []
 
-        for _ in range(n_runs):
+        for _ in range(runs):
             p = base_params.copy()
             p['s'] = s
             t, F, P = gillespie_ssa(p, TMAX, y0)
@@ -108,20 +114,3 @@ def run_multiple_ssa(s_values=[0.0, 0.2, 0.6], n_runs=50):
         }
 
     return results
-
-def analyze_ssa_results(results):
-    for s, data in results.items():
-        F_matrix = data['F']
-        P_matrix = data['P']
-
-        mean_F = F_matrix.mean(axis=0)
-        std_F = F_matrix.std(axis=0)
-        mean_P = P_matrix.mean(axis=0)
-        std_P = P_matrix.std(axis=0)
-
-        extinct_fraction = np.sum(P_matrix[:, -1] == 0) / P_matrix.shape[0]
-
-        print(f"s = {s:.2f}")
-        print(f"Mean F (final) = {mean_F[-1]:.4f} ± {std_F[-1]:.4f}")
-        print(f"Mean P (final) = {mean_P[-1]:.4f} ± {std_P[-1]:.4f}")
-        print(f"Fraction of runs where plasmids go extinct: {extinct_fraction:.2f}\n")

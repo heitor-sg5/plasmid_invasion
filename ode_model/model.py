@@ -1,17 +1,6 @@
 import numpy as np
 from scipy.integrate import solve_ivp
 
-base_params = {
-    'K': 1.0,        # carrying capacity
-    'r': 1.0,        # baseline growth rate
-    'mu': 0.1,       # baseline mortality
-    'c': 0.05,       # plasmid cost
-    'beta': 0.01,    # conjugation rate
-    'delta': 0.01,   # plasmid loss
-    's': 0.0,        # selective pressure
-}
-
-TMAX = 1000
 y0 = [0.99, 0.01]
 
 def ode_model(t, y, p):
@@ -48,8 +37,20 @@ def get_beta_delta(p):
     term2 = 1 + ((p['mu'] + p['c']) / (p['delta'] * (1 - p['s'])))
     return term1 * term2
 
-def run_time_series(s_values=[0.0, 0.2, 0.6]):
+def analyse_ode_results(base_params):
+    p = base_params.copy()
+    beta_crit = get_beta_crit(p)
+    beta_cost = get_beta_cost(p)
+    beta_delta = get_beta_delta(p)
+
+    print("\nAnalytical thresholds (base parameters):")
+    print(f"Critical β = {beta_crit:.4f}")
+    print(f"Critical β / c = {beta_cost:.4f}")
+    print(f"Critical β / δ = {beta_delta:.4f}")
+
+def run_time_series(base_params, TMAX):
     results = {}
+    s_values=[0.0, 0.2, 0.6]
     t_eval = np.linspace(0, TMAX, 500)
     for s in s_values:
         params = base_params.copy()
@@ -58,11 +59,9 @@ def run_time_series(s_values=[0.0, 0.2, 0.6]):
         results[s] = sol
     return results
 
-def run_beta_sweep(beta_values=None, cost_values=None):
-    if beta_values is None:
-        beta_values = np.linspace(0, 0.05, 20)
-    if cost_values is None:
-        cost_values = np.linspace(0, 0.2, 20)
+def run_beta_sweep(base_params, TMAX):
+    beta_values = np.linspace(0, 0.05, 20)
+    cost_values = np.linspace(0, 0.2, 20)
 
     heatmap = np.zeros((len(cost_values), len(beta_values)))
     beta_sweep = []
