@@ -34,8 +34,7 @@ The deterministic model captures mean-field population behaviour, while the stoc
 ├── docs/
 │   ├── appendix_A.pdf
 │   ├── appendix_B.pdf
-│   ├── appendix_C.pdf
-│   └── analysis.pdf
+│   └── appendix_C.pdf
 ├── requirements.txt
 └── README.md
 ```
