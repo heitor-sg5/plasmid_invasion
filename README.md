@@ -126,3 +126,14 @@ Time series from Gillespie stochastic simulation algorithm (SSA) implementations
 ## Documentation
 
 An overview of the ODE model and its parameters is provided in `docs/appendix_A`. A detailed analysis, including equilibrium calculations and Jacobian derivations, is presented in `docs/appendix_B`. The Gillespie implementation of the SSA model is described in `docs/appendix_C`.
+
+---
+
+## References
+
+Hernández-Beltrán, J.C.R., San Millán, A., Fuentes-Hernández, A. and Peña-Miller, R. (2021). Mathematical Models of Plasmid Population Dynamics. Frontiers in Microbiology, 12. Available at: https://pmc.ncbi.nlm.nih.gov/articles/PMC8600371/ 
+Stewart, F.M. and Levin, B.R. (1977). THE POPULATION BIOLOGY OF BACTERIAL PLASMIDS: A PRIORI CONDITIONS FOR THE EXISTENCE OF CONJUGATIONALLY TRANSMITTED FACTORS. Genetics, 87(2), pp.209–228. Available at: https://pmc.ncbi.nlm.nih.gov/articles/instance/1213735/ 
+Lopez, J.G., Donia, M.S. and Wingreen, N.S. (2021). Modeling the ecology of parasitic plasmids. The ISME Journal, 15(10), pp.2843–2852. Available at: https://pmc.ncbi.nlm.nih.gov/articles/PMC8443676/  
+Prensky, H., Gomez‐Simmonds, A., Uhlemann, A. and Lopatkin, A.J. (2021). Conjugation dynamics depend on both the plasmid acquisition cost and the fitness cost. Molecular Systems Biology, 17(3). Available at: https://pmc.ncbi.nlm.nih.gov/articles/PMC7919528/ 
+Lopatkin, A.J., Meredith, H.R., Srimani, J.K., Pfeiffer, C., Durrett, R. and You, L. (2017). Persistence and reversal of plasmid-mediated antibiotic resistance. Nature Communications, 8(1), pp.1–10. Available at: https://pmc.ncbi.nlm.nih.gov/articles/PMC5698434/ 
+Ibarguen-Mondragón, E., Esteva, L., M. Victoria Otero-Espinar, Vega, E. and Miller Cerón-Gómez (2025). On qualitative properties of replication and transfer of conjugative plasmids encoding antibiotic resistance genes. Computational and Applied Mathematics, 44(5). Available at: https://link.springer.com/article/10.1007/s40314-025-03231-w 
